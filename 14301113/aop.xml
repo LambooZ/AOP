@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="fooTarget" class="aoptest.FooImpl" />
+	<bean id="nameMatchMethodPointcutAdvisor"
+		class="dev.edu.javaee.spring.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="mappedNames" method="printFoo">
+		</property>
+	</bean>
+
+	<bean id="jdkRegexpMethodPointcutAdvisor"
+		class="dev.edu.javaee.spring.aop.support.JdkRegexpMethodPointcutAdvisor">
+		<property name="patterns" method="\w+Foo">
+		</property>
+	</bean>
+
+	<bean id="foo" class="aoptest.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="FooInterface">
+		</property>
+		<property name="target" ref="fooTarget">
+		</property>
+		<property name="advisor" ref="jdkRegexpMethodPointcutAdvisor"></property>
+	</bean>
+</beans>
